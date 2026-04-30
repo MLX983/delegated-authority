@@ -1,4 +1,22 @@
 /* App — Screen 2 overlays and slides over Screen 1 */
+.embed-scale-root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.embed-scale-stage {
+  width: 390px;
+  transform-origin: top center;
+}
+
+@media (max-width: 420px) {
+  .embed-scale-stage {
+    transform: scale(var(--embed-scale, 1));
+  }
+}
+
 .app-viewport {
   max-width: 390px;
   margin: 0 auto;
