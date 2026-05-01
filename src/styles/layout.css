@@ -533,6 +533,7 @@ textarea {
 .edit-textbox {
   min-height: 54px;
   font-size: var(--fs-body);
+  line-height: 1.45;
   color: var(--muted);
   font-weight: var(--fw-regular);
   cursor: text;
@@ -561,6 +562,23 @@ textarea {
 .edit-modal-actions .button[disabled] {
   pointer-events: none;
   opacity: 1;
+}
+
+/* Narrow viewports (e.g. embedded mobile iframe): give the draft room without a textarea scrollbar */
+@media (max-width: 420px) {
+  .edit-modal-content {
+    gap: var(--space-150);
+  }
+
+  .edit-textbox {
+    min-height: 120px;
+    overflow-y: hidden;
+  }
+
+  .edit-modal-actions {
+    gap: var(--space-200);
+    padding: var(--space-200) var(--space-200);
+  }
 }
 
 /* Screen 2 — Policy detail & Conversation context bottom sheets */
