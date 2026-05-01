@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { createPortal } from "react-dom";
 
 interface Props {
   open: boolean;
@@ -56,7 +55,7 @@ export function EditMessageModal({
 
   const displayedText = hasPretendEdit ? updatedMessage : defaultMessage;
 
-  return createPortal(
+  return (
     <div
       className={`sheet-backdrop edit-modal-backdrop edit-modal-layer ${
         fadeVisible ? "edit-modal-layer--visible" : ""
@@ -91,7 +90,6 @@ export function EditMessageModal({
           </button>
         </div>
       </div>
-    </div>,
-    document.body,
+    </div>
   );
 }
