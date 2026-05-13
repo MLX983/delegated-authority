@@ -51,8 +51,9 @@
   font-family: var(--font-page-title);
   color: var(--brand);
   font-size: var(--fs-page-title);
-  line-height: 1;
+  line-height: normal;
   font-weight: var(--fw-semibold);
+  letter-spacing: 0;
 }
 
 .section-title {
@@ -529,7 +530,8 @@ textarea {
   font-family: var(--font-page-title);
   font-size: var(--fs-page-title);
   font-weight: var(--fw-semibold);
-  line-height: 1;
+  line-height: normal;
+  letter-spacing: 0;
 }
 
 .edit-textbox {
