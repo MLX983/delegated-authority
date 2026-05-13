@@ -7,18 +7,13 @@
 }
 
 .embed-scale-stage {
-  width: 390px;
-  transform-origin: top center;
-}
-
-@media (max-width: 420px) {
-  .embed-scale-stage {
-    transform: scale(var(--embed-scale, 1));
-  }
+  width: 100%;
+  max-width: var(--app-content-max);
+  box-sizing: border-box;
 }
 
 .app-viewport {
-  max-width: 390px;
+  width: 100%;
   margin: 0 auto;
   overflow: hidden;
   min-height: 100vh;
@@ -43,7 +38,7 @@
 }
 
 .mobile-shell {
-  max-width: 390px;
+  width: 100%;
   margin: 0 auto;
   padding: var(--space-6) var(--space-3) var(--space-3);
   display: flex;
@@ -474,7 +469,7 @@
 }
 
 .sheet {
-  width: min(420px, 100%);
+  width: min(var(--app-content-max), 100%);
   background: #fff;
   border-radius: 14px;
   border: 1px solid var(--border);
@@ -493,7 +488,7 @@ textarea {
 }
 
 .edit-modal-sheet {
-  width: 358px;
+  width: min(400px, 100%);
   border-radius: var(--space-200);
   padding: var(--space-200);
   gap: var(--space-200);
@@ -595,7 +590,7 @@ textarea {
 
 .bottom-sheet-panel {
   width: 100%;
-  max-width: 390px;
+  max-width: var(--app-content-max);
   background: var(--surface);
   border-radius: var(--space-200) var(--space-200) 0 0;
   overflow: hidden;

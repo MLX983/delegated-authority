@@ -1,4 +1,7 @@
 :root {
+  /* Main column width in embeds (Wix iframe, etc.): fluid up to this cap */
+  --app-content-max: 560px;
+
   --font-page-title: "Plus Jakarta Sans", "Segoe UI", sans-serif;
   --font-body: "Figtree", "Inter", "Segoe UI", sans-serif;
 

@@ -2,11 +2,23 @@
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+  min-height: 100%;
+}
+
 body {
   margin: 0;
+  width: 100%;
+  min-height: 100%;
   font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
+}
+
+#root {
+  width: 100%;
+  min-height: 100%;
 }
 
 h1,
