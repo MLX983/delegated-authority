@@ -16,6 +16,7 @@ export function getVisibleQueue(
   items: EscalationItem[],
   runtimeById: Record<string, EscalationRuntimeState>,
   committedPolicy: PolicyStance,
+  pinnedHeldEscalationId: string | null = null,
 ): DetailItemViewModel[] {
   return items
     .filter((item) => shouldEscalate(item, committedPolicy))
@@ -26,6 +27,12 @@ export function getVisibleQueue(
       currentDraftMessage: runtimeById[item.id]?.sentMessage ?? item.draftMessage,
     }))
     .sort((a, b) => {
+      const aIsPinnedHeld = a.item.id === pinnedHeldEscalationId && a.status === "held";
+      const bIsPinnedHeld = b.item.id === pinnedHeldEscalationId && b.status === "held";
+
+      if (aIsPinnedHeld !== bIsPinnedHeld) {
+        return aIsPinnedHeld ? -1 : 1;
+      }
       if (a.status === b.status) return 0;
       if (a.status === "held") return 1;
       if (b.status === "held") return -1;

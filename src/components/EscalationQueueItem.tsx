@@ -4,9 +4,10 @@ interface Props {
   viewModel: DetailItemViewModel;
   interactive: boolean;
   onOpen: (id: string) => void;
+  itemRef?: (element: HTMLButtonElement | HTMLDivElement | null) => void;
 }
 
-export function EscalationQueueItem({ viewModel, interactive, onOpen }: Props) {
+export function EscalationQueueItem({ viewModel, interactive, onOpen, itemRef }: Props) {
   const { item, status } = viewModel;
   const displayTitle = status === "held" ? `Hold: ${item.title}` : item.title;
   const isSending = status === "sending";
@@ -36,11 +37,16 @@ export function EscalationQueueItem({ viewModel, interactive, onOpen }: Props) {
   );
 
   if (!interactive) {
-    return <div className={className}>{inner}</div>;
+    return (
+      <div ref={itemRef} className={className}>
+        {inner}
+      </div>
+    );
   }
 
   return (
     <button
+      ref={itemRef}
       type="button"
       className={className}
       onClick={() => onOpen(item.id)}

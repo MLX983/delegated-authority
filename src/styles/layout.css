@@ -40,7 +40,7 @@
 .mobile-shell {
   width: 100%;
   margin: 0 auto;
-  padding: var(--space-6) var(--space-3) var(--space-3);
+  padding: var(--space-5) var(--space-3) var(--space-3);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -253,8 +253,14 @@
 }
 
 .queue-item.is-held {
-  background: var(--held);
-  opacity: 0.75;
+  background: var(--surface);
+}
+
+.queue-item.is-held .queue-title,
+.queue-item.is-held .queue-summary,
+.queue-item.is-held .queue-agent,
+.queue-item.is-held .queue-chevron {
+  color: var(--text-tertiary);
 }
 
 .queue-item.is-sending {
@@ -616,22 +622,42 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: var(--space-200);
-  padding: var(--space-200) var(--space-200) var(--space-400);
+  padding: var(--space-200) var(--space-200) var(--space-600);
 }
 
 .bottom-sheet-heading {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
   gap: var(--space-50);
 }
 
 .bottom-sheet-page-title {
   margin: 0;
+  flex: 1;
   font-family: var(--font-body);
   font-size: var(--fs-header);
   font-weight: var(--fw-regular);
   line-height: normal;
   color: var(--brand);
+}
+
+.bottom-sheet-close-button {
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  align-self: stretch;
+  margin-left: auto;
+  padding: 0 0 0 var(--space-200);
+  cursor: pointer;
+}
+
+.bottom-sheet-close-button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
 }
 
 .policy-detail-units {
@@ -686,31 +712,3 @@ textarea {
   line-height: normal;
 }
 
-.bottom-sheet-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-300) var(--space-200);
-}
-
-.sheet-done-button {
-  width: 80px;
-  min-width: 80px;
-  box-sizing: border-box;
-  padding: var(--space-100) var(--space-200);
-  border: none;
-  border-radius: var(--space-100);
-  background: var(--primary-quiet);
-  color: var(--brand);
-  font-family: var(--font-body);
-  font-size: var(--fs-body);
-  font-weight: var(--fw-semibold);
-  line-height: normal;
-  cursor: pointer;
-}
-
-.sheet-done-button:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-}

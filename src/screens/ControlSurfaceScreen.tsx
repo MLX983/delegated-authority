@@ -12,6 +12,7 @@ interface Props {
   visualOutcome: OutcomeCardModel;
   queue: DetailItemViewModel[];
   queueCount: number;
+  holdReorderToken: number;
   onSelectPolicy: (policy: PolicyStance) => void;
   onApplyPolicy: () => void;
   onCancelPolicy: () => void;
@@ -24,6 +25,7 @@ export function ControlSurfaceScreen({
   visualOutcome,
   queue,
   queueCount,
+  holdReorderToken,
   onSelectPolicy,
   onApplyPolicy,
   onCancelPolicy,
@@ -55,7 +57,12 @@ export function ControlSurfaceScreen({
           />
         </div>
       </section>
-      <EscalationQueueList queue={queue} queueCount={queueCount} onOpen={onOpenEscalation} />
+      <EscalationQueueList
+        queue={queue}
+        queueCount={queueCount}
+        holdReorderToken={holdReorderToken}
+        onOpen={onOpenEscalation}
+      />
     </main>
   );
 }

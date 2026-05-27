@@ -49,6 +49,7 @@ export default function App() {
               visualOutcome={visualOutcome}
               queue={state.queue}
               queueCount={state.queueCount}
+              holdReorderToken={state.holdReorderToken}
               onSelectPolicy={state.tapPolicy}
               onApplyPolicy={state.applyPendingPolicy}
               onCancelPolicy={state.cancelPendingPolicy}

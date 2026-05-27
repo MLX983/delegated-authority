@@ -8,10 +8,13 @@ type ScreenView = "control-surface" | "escalation-detail";
 export function usePocState() {
   const pauseBeforeSendTimeoutRef = useRef<number | null>(null);
   const sendTransitionTimeoutRef = useRef<number | null>(null);
+  const holdReorderTimeoutRef = useRef<number | null>(null);
   const [screenView, setScreenView] = useState<ScreenView>("control-surface");
   const [committedPolicy, setCommittedPolicy] = useState<PolicyStance>("balanced");
   const [pendingPolicy, setPendingPolicy] = useState<PolicyStance | null>(null);
   const [selectedEscalationId, setSelectedEscalationId] = useState<string | null>(null);
+  const [pinnedHeldEscalationId, setPinnedHeldEscalationId] = useState<string | null>(null);
+  const [holdReorderToken, setHoldReorderToken] = useState(0);
   const [runtimeById, setRuntimeById] =
     useState<Record<string, EscalationRuntimeState>>(initialRuntimeState);
   const [isPolicyDetailOpen, setPolicyDetailOpen] = useState(false);
@@ -20,8 +23,8 @@ export function usePocState() {
   const [modalDraftText, setModalDraftText] = useState("");
 
   const queue = useMemo(
-    () => getVisibleQueue(escalationItems, runtimeById, committedPolicy),
-    [runtimeById, committedPolicy],
+    () => getVisibleQueue(escalationItems, runtimeById, committedPolicy, pinnedHeldEscalationId),
+    [runtimeById, committedPolicy, pinnedHeldEscalationId],
   );
 
   const queueCount = getVisibleQueueCount(queue);
@@ -38,6 +41,9 @@ export function usePocState() {
       }
       if (sendTransitionTimeoutRef.current != null) {
         window.clearTimeout(sendTransitionTimeoutRef.current);
+      }
+      if (holdReorderTimeoutRef.current != null) {
+        window.clearTimeout(holdReorderTimeoutRef.current);
       }
     };
   }, []);
@@ -60,6 +66,11 @@ export function usePocState() {
       window.clearTimeout(sendTransitionTimeoutRef.current);
       sendTransitionTimeoutRef.current = null;
     }
+    if (holdReorderTimeoutRef.current != null) {
+      window.clearTimeout(holdReorderTimeoutRef.current);
+      holdReorderTimeoutRef.current = null;
+    }
+    setPinnedHeldEscalationId(null);
     setRuntimeById(initialRuntimeState);
     setCommittedPolicy(pendingPolicy);
     setPendingPolicy(null);
@@ -83,20 +94,42 @@ export function usePocState() {
     setScreenView("control-surface");
   }
 
-  function applyHoldWithoutNavigate() {
-    if (selectedEscalationId == null) return;
+  function setEscalationHeld(escalationId: string) {
     setRuntimeById((prev) => ({
       ...prev,
-      [selectedEscalationId]: {
-        ...prev[selectedEscalationId],
+      [escalationId]: {
+        ...prev[escalationId],
         status: "held",
       },
     }));
   }
 
+  function applyHoldWithoutNavigate() {
+    if (selectedEscalationId == null) return;
+    setEscalationHeld(selectedEscalationId);
+  }
+
+  function scheduleHeldEscalationReorder(escalationIdToPin: string) {
+    if (holdReorderTimeoutRef.current != null) {
+      window.clearTimeout(holdReorderTimeoutRef.current);
+    }
+
+    setPinnedHeldEscalationId(escalationIdToPin);
+    holdReorderTimeoutRef.current = window.setTimeout(() => {
+      holdReorderTimeoutRef.current = null;
+      setHoldReorderToken((current) => current + 1);
+      setPinnedHeldEscalationId((current) =>
+        current === escalationIdToPin ? null : current,
+      );
+    }, 600);
+  }
+
   function holdSelectedEscalation() {
-    applyHoldWithoutNavigate();
+    if (selectedEscalationId == null) return;
+    const escalationIdToHold = selectedEscalationId;
+    setEscalationHeld(escalationIdToHold);
     returnToControlSurface();
+    scheduleHeldEscalationReorder(escalationIdToHold);
   }
 
   function scheduleEscalationSendSequence(escalationIdToSend: string, messageToSend: string) {
@@ -160,6 +193,7 @@ export function usePocState() {
     pendingPolicy,
     queue,
     queueCount,
+    holdReorderToken,
     outcome,
     selectedItem,
     isPolicyDetailOpen,
