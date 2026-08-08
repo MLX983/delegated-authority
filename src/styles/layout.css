@@ -46,6 +46,26 @@
   gap: var(--space-3);
 }
 
+/* Narrow embeds (iPhone / Wix iframe): fill available width.
+   Desktop keeps the centered --app-content-max cap above this breakpoint. */
+@media (max-width: 480px) {
+  .embed-scale-root {
+    /* Single child; block avoids flex centering leaving unused side space */
+    display: block;
+  }
+
+  .embed-scale-stage {
+    max-width: none;
+    width: 100%;
+  }
+
+  .app-viewport,
+  .mobile-shell {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .page-title {
   margin: 0;
   font-family: var(--font-page-title);
