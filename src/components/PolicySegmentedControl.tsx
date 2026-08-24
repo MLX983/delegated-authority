@@ -2,6 +2,12 @@ import type { PolicyStance } from "../state/types";
 
 const policyOptions: PolicyStance[] = ["strict", "balanced", "autonomous"];
 
+const policyTabLabels: Record<PolicyStance, string> = {
+  strict: "Strict",
+  balanced: "Balanced",
+  autonomous: "Auto",
+};
+
 interface Props {
   committedPolicy: PolicyStance;
   pendingPolicy: PolicyStance | null;
@@ -23,8 +29,7 @@ export function PolicySegmentedControl({
 
         return (
           <button key={policy} className={className} onClick={() => onSelect(policy)}>
-            {policy[0].toUpperCase()}
-            {policy.slice(1)}
+            {policyTabLabels[policy]}
           </button>
         );
       })}

@@ -18,9 +18,9 @@ export function getOutcomeCardModel(policy: PolicyStance): OutcomeCardModel {
     return {
       headline: "System routes most messages for review",
       description: "",
-      autoSent: "2 (-22)",
-      escalated: "9 (+4)",
-      avgResolution: "5.8m (+2.6m)",
+      autoSent: "2",
+      escalated: "9",
+      avgResolution: "5.8m",
     };
   }
 
@@ -28,18 +28,18 @@ export function getOutcomeCardModel(policy: PolicyStance): OutcomeCardModel {
     return {
       headline: "System acts unless something is clearly risky",
       description: "",
-      autoSent: "13 (+5)",
-      escalated: "2 (-7)",
-      avgResolution: "1.4m (-3.0m)",
+      autoSent: "13",
+      escalated: "2",
+      avgResolution: "1.4m",
     };
   }
 
   return {
     headline: "System filters noise, surfaces real risk",
     description: "",
-    autoSent: "8 (+6)",
-    escalated: "5 (-4)",
-    avgResolution: "3.2m (-1.1m)",
+    autoSent: "8",
+    escalated: "5",
+    avgResolution: "3.2m",
   };
 }
 
@@ -50,24 +50,24 @@ export function getPreviewOutcomeMetrics(pendingPolicy: PolicyStance): {
 } {
   if (pendingPolicy === "strict") {
     return {
-      autoSent: "2 (+4)",
-      escalated: "9 (+4)",
-      avgResolution: "5.8m (+2.6m)",
+      autoSent: "2",
+      escalated: "9",
+      avgResolution: "5.8m",
     };
   }
 
   if (pendingPolicy === "autonomous") {
     return {
-      autoSent: "13 (+5)",
-      escalated: "2 (-7)",
-      avgResolution: "1.4m (-3.0m)",
+      autoSent: "13",
+      escalated: "2",
+      avgResolution: "1.4m",
     };
   }
 
   return {
-    autoSent: "8 (-6)",
-    escalated: "5 (-4)",
-    avgResolution: "3.2m (-1.1m)",
+    autoSent: "8",
+    escalated: "5",
+    avgResolution: "3.2m",
   };
 }
 

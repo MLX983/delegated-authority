@@ -12,7 +12,7 @@ interface Props {
   onOpen: (id: string) => void;
 }
 
-export function EscalationQueueList({ queue, queueCount, holdReorderToken, onOpen }: Props) {
+export function EscalationQueueList({ queue, holdReorderToken, onOpen }: Props) {
   const itemElementsRef = useRef<Record<string, HTMLButtonElement | HTMLDivElement | null>>({});
   const previousTopByIdRef = useRef<Record<string, number>>({});
   const holdReorderAnimationFrameRef = useRef<number | null>(null);
@@ -78,7 +78,7 @@ export function EscalationQueueList({ queue, queueCount, holdReorderToken, onOpe
 
   return (
     <section className="queue-section">
-      <h2 className="section-title">Needs review ({queueCount})</h2>
+      <h2 className="section-title">Needs review</h2>
       {queue.length === 0 ? (
         <p className="empty-copy">No messages currently require review.</p>
       ) : (
